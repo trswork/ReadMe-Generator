@@ -1,6 +1,6 @@
 // TODO: Include packages needed for this application
 const fs = require('fs');
-const inquirer = require("inquirer");
+const inquirer = require('inquirer');
 const util = require("util");
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
@@ -63,22 +63,24 @@ inquirer
       name: 'Questions',
       message: 'Questions'
     },
-  ]);
+  ])
+  .then(answers) = '';
 
-// TODO: Create a function to write README file
+  
 
-const filename = "README.md";
+  function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, function(err) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("Success! README.md has been created")
+    });
+}
 
-  fs.writeFileSync(filename, data, function(err) {
-    if (err) {
-      return console.log(err);
-    } else {
-    console.log('Success!');
-    }
-  });
+const writeFileAsync = util.promisify(fs.writeToFile);
 
    // TODO: Create a function to initialize app
-function init() {
+async function init() {
   inquirer.prompt()
   .then(function(data) {
     writeToFile("README.md", generateMarkdown(data));
