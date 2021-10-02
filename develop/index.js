@@ -72,9 +72,9 @@ inquirer
     console.log("Success! README.md has been created")
 }).catch((err) => console.error(err));
 
-var writeToFile = answers=> {
+var writeToFile = function(answers) {
     writeFileAsync("README.md", generateMarkdown(answers))
-}
+};
 
 // Function call to initialize app
 //init()
