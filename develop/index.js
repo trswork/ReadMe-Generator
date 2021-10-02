@@ -3,7 +3,7 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const util = require("util");
 const generateMarkdown = require('./utils/generateMarkdown.js');
-var data = "New File Contents";
+
 
 const writeFileAsync = util.promisify(fs.writeFile);
 
@@ -68,7 +68,7 @@ inquirer
     },
   ])
   .then(answers => {
-    writeFile("temp.txt", data, (err) => {
+    writeFile("temp.txt", answers, (err) => {
         if (err) console.log(err);
         console.log("Successfully Written to File.");
       });
