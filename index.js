@@ -3,7 +3,7 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const util = require("util");
 const generateMarkdown = require('./utils/generateMarkdown.js');
-var data = "New File Contents";
+
 
 const writeFileAsync = util.promisify(fs.writeFile);
 
@@ -18,7 +18,7 @@ inquirer
     {
         type: 'input',
         name: 'Description',
-        message: 'Provide a description of project'
+        message: 'Provide a Description'
     },
     {
         type: 'input',
@@ -28,12 +28,12 @@ inquirer
     {
         type: 'input',
         name: 'Installation',
-        message: 'Provide a description of how to get the development environment running'
+        message: 'Installation'
     },
     {
         type: 'input',
         name: 'Usage',
-        message: 'Provide instructions and examples for use'
+        message: 'Usage'
     },  
     {
       type: 'list',
@@ -44,22 +44,22 @@ inquirer
     {
       type: 'input',
       name: 'GitHub',
-      message: 'Provide GitHub name',
+      message: 'GitHub',
     },
     {
         type: 'input',
         name: 'Email',
-        message: 'Provide E-mail address'
+        message: 'E-mail'
     },
     {
       type: 'input',
       name: 'Credit',
-      message: 'List your collaborators'
+      message: 'Credit'
     },
     {
       type: 'input',
       name: 'Test',
-      message: 'Provide examples on how to run them'
+      message: 'Test'
     },
     {
       type: 'input',
@@ -68,16 +68,13 @@ inquirer
     },
   ])
   .then(answers => {
-    writeFile("temp.txt", data, (err) => {
-        if (err) console.log(err);
-        console.log("Successfully Written to File.");
-      });
+    writeToFile(answers)
+    console.log("Success! README.md has been created")
+}).catch((err) => console.error(err));
 
-      
-      writeFileAsync("README.md", generateMarkdown(answers))
-
-});
-
+var writeToFile = function(answers) {
+    writeFileAsync("README.md", generateMarkdown(answers))
+};
 
 // Function call to initialize app
 //init()
