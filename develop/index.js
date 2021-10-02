@@ -4,6 +4,9 @@ const inquirer = require('inquirer');
 const util = require("util");
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
+
+const writeFileAsync = util.promisify(fs.writeFile);
+
 // TODO: Create an array of questions for user input
 inquirer
   .prompt([
@@ -15,7 +18,7 @@ inquirer
     {
         type: 'input',
         name: 'Description',
-        message: 'Description'
+        message: 'Provide a Description'
     },
     {
         type: 'input',
@@ -64,29 +67,14 @@ inquirer
       message: 'Questions'
     },
   ])
-  .then(answers) = '';
+  .then(answers => {
+    writeToFile(answers)
+    console.log("Success! README.md has been created")
+}).catch((err) => console.error(err));
 
-  
-
-  function writeToFile(fileName, data) {
-    fs.writeFile(fileName, data, function(err) {
-        if (err) {
-          return console.log(err);
-        }
-        console.log("Success! README.md has been created")
-    });
+var writeToFile = answers=> {
+    writeFileAsync("README.md", generateMarkdown(answers))
 }
 
-const writeFileAsync = util.promisify(fs.writeToFile);
-
-   // TODO: Create a function to initialize app
-async function init() {
-  inquirer.prompt()
-  .then(function(data) {
-    writeToFile("README.md", generateMarkdown(data));
-    console.log(data)
-  })
-};
-
 // Function call to initialize app
-init();
+//init()
